@@ -1,4 +1,23 @@
 # RFCBot
-Python scripts for testing possible robot design
+# Python scripts for testing possible robot design
 
-sudo python test.py
+# Install Raspian "Stretch" Lite to microSD card.
+# Set a Hostname, connect to wifi, enable SSH, localize, update, etc.
+sudo raspi-config
+#reboot
+
+# Update all other packages
+sudo apt update && sudo apt full-upgrade -y
+
+
+sudo apt install -y git screen python-pip
+
+sudo pip install wiringpi
+
+
+
+cd ~
+git clone https://github.com/SWiT/RFCBot.git
+sudo python RFCBot/test.py
+
+raspivid -o - -t 0 -hf -w 800 -h 400 -fps 24 |cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8160}' :demux=h264

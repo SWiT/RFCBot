@@ -20,5 +20,9 @@ cd ~
 git clone https://github.com/SWiT/RFCBot.git
 sudo python RFCBot/test.py
 
-raspivid -o - -t 0 -hf -w 800 -h 400 -fps 24 |cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8160}' :demux=h264
+raspivid -o - -t 0 -w 640 -h 480 -fps 30 |cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8160}' :demux=h264
+
+
+http://192.168.1.8:8160
+set caching to 0ms
 

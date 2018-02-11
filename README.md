@@ -10,7 +10,7 @@ sudo raspi-config
 sudo apt update && sudo apt full-upgrade -y
 
 
-sudo apt install -y git screen python-pip
+sudo apt install -y git screen python-pip vlc
 
 sudo pip install wiringpi
 

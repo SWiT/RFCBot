@@ -26,3 +26,7 @@ raspivid -o - -t 0 -w 640 -h 480 -fps 30 |cvlc -vvv stream:///dev/stdin --sout '
 http://192.168.1.8:8160
 set caching to 0ms
 
+
+#Reverse SSH connections
+ssh -R 2200:localhost:22 USER@HOSTNAME
+ssh -p 2200 pi@localhost

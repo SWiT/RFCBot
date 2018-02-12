@@ -1,13 +1,23 @@
 # Servo Control
 import time
 import wiringpi
+import pygame
+
+servoleft = 18
+servoright = 13
+
+leftforward = 50
+rightforward = 200
+stop = 150
+leftreverse = 200
+rightreverse = 50
 
 # use 'GPIO naming'
 wiringpi.wiringPiSetupGpio()
 
 # set #18 to be a PWM output
-wiringpi.pinMode(18, wiringpi.GPIO.PWM_OUTPUT)
-wiringpi.pinMode(13, wiringpi.GPIO.PWM_OUTPUT)
+wiringpi.pinMode(servoleft, wiringpi.GPIO.PWM_OUTPUT)
+wiringpi.pinMode(servoright, wiringpi.GPIO.PWM_OUTPUT)
 
 # set the PWM mode to milliseconds stype
 wiringpi.pwmSetMode(wiringpi.GPIO.PWM_MODE_MS)
@@ -16,20 +26,24 @@ wiringpi.pwmSetMode(wiringpi.GPIO.PWM_MODE_MS)
 wiringpi.pwmSetClock(192)
 wiringpi.pwmSetRange(2000)
 
+pygame.init()
+pygame.key.set_repeat(100, 100)
+
 delay_period = 0.01
 run = True
 while run:
-    for pulse in range(50, 250, 1):
-            wiringpi.pwmWrite(18, pulse)
-            wiringpi.pwmWrite(13, pulse)
-            time.sleep(delay_period)
-    for pulse in range(250, 50, -1):
-            wiringpi.pwmWrite(18, pulse)
-            wiringpi.pwmWrite(13, pulse)
-            time.sleep(delay_period)
-    wiringpi.pwmWrite(18, 150)
-    wiringpi.pwmWrite(13, 150)
-    time.sleep(delay_period)
-    run = False
-print "done."
+    for event in pygame.event.get():
+        print "Event!"
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                print 'go forward'
+            if event.key == pygame.K_s:
+                print 'go backward'
+        if event.type == pygame.KEYUP:
+            print 'stop'
+    #wiringpi.pwmWrite(stop, 150)
+    #wiringpi.pwmWrite(stop, 150)
+    #time.sleep(delay_period)
+    
+print "exit."
 		

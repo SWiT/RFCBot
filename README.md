@@ -31,3 +31,12 @@ set caching to 0ms
 ssh -R 2200:localhost:22 -R 8160:localhost:8160 USER@HOSTNAME
 ssh -p 2200 pi@localhost
 #connect vlc to localhost:8160
+
+#Wiimote Stuff
+>>sudo apt-get install bluetooth vorbis-tools python-cwiid wminput
+
+>>sudo tee /etc/udev/rules.d/wiimote.rules << EOF
+>>KERNEL=="uinput", MODE="0666"
+>>EOF
+
+sudo ./attachwii.sh

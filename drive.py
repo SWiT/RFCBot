@@ -26,24 +26,22 @@ wiringpi.pwmSetMode(wiringpi.GPIO.PWM_MODE_MS)
 wiringpi.pwmSetClock(192)
 wiringpi.pwmSetRange(2000)
 
-pygame.init()
-pygame.key.set_repeat(100, 100)
+pygame.joystick.init()
+joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 
 delay_period = 0.01
 run = True
 while run:
     for event in pygame.event.get():
-        print "Event!"
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
-                print 'go forward'
-            if event.key == pygame.K_s:
-                print 'go backward'
-        if event.type == pygame.KEYUP:
-            print 'stop'
+        # Possible joystick actions: JOYAXISMOTION JOYBALLMOTION JOYBUTTONDOWN JOYBUTTONUP JOYHATMOTION
+        if event.type == pygame.JOYBUTTONDOWN:
+            print("Joystick button pressed.")
+        if event.type == pygame.JOYBUTTONUP:
+            print("Joystick button released.")
     #wiringpi.pwmWrite(stop, 150)
     #wiringpi.pwmWrite(stop, 150)
     #time.sleep(delay_period)
-    
+
+pygame.joystick.quit()    
 print "exit."
 		

@@ -41,6 +41,8 @@ EOF
 
 sudo reboot
 
-sudo ./attachwii.sh
+hcitool scan
+nano attachwii.sh
+./attachwii.sh
 
 

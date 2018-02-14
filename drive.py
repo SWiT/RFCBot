@@ -26,7 +26,12 @@ wiringpi.pwmSetMode(wiringpi.GPIO.PWM_MODE_MS)
 wiringpi.pwmSetClock(192)
 wiringpi.pwmSetRange(2000)
 
+
+pygame.init()
 pygame.joystick.init()
+print(str(pygame.joystick.get_count())+" Joysticks")
+
+#joystickcount = 
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 
 delay_period = 0.01
@@ -42,6 +47,6 @@ while run:
     #wiringpi.pwmWrite(stop, 150)
     #time.sleep(delay_period)
 
-pygame.joystick.quit()    
+pygame.joystick.quit()
 print "exit."
-		
+

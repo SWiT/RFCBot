@@ -26,16 +26,22 @@ wiringpi.pwmSetMode(wiringpi.GPIO.PWM_MODE_MS)
 wiringpi.pwmSetClock(192)
 wiringpi.pwmSetRange(2000)
 
+run = True
 
 pygame.init()
 pygame.joystick.init()
-print(str(pygame.joystick.get_count())+" Joysticks")
 
-#joystickcount = 
-joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 
+joystickcount = pygame.joystick.get_count()
+print(str(joystickcount)+" Joysticks")
+if joystickcount < 1:
+    run = False
+else:    
+    joystick = pygame.joystick.Joystick(0)
+    joystick.init()
+    
 delay_period = 0.01
-run = True
+
 while run:
     for event in pygame.event.get():
         # Possible joystick actions: JOYAXISMOTION JOYBALLMOTION JOYBUTTONDOWN JOYBUTTONUP JOYHATMOTION

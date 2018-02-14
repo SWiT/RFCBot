@@ -49,6 +49,10 @@ while run:
             print("Joystick button pressed.")
         if event.type == pygame.JOYBUTTONUP:
             print("Joystick button released.")
+        if event.type == pygame.JOYAXISMOTION:
+            print("JOYAXISMOTION")    
+        if event.type == pygame.JOYHATMOTION:
+            print("JOYHATMOTION")
     #wiringpi.pwmWrite(stop, 150)
     #wiringpi.pwmWrite(stop, 150)
     #time.sleep(delay_period)

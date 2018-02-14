@@ -39,6 +39,7 @@ if joystickcount < 1:
 else:    
     joystick = pygame.joystick.Joystick(0)
     joystick.init()
+    print(str(joystick.get_numbuttons())+" Buttons")
     
 delay_period = 0.01
 
@@ -47,12 +48,13 @@ while run:
         # Possible joystick actions: JOYAXISMOTION JOYBALLMOTION JOYBUTTONDOWN JOYBUTTONUP JOYHATMOTION
         if event.type == pygame.JOYBUTTONDOWN:
             print("Joystick button pressed.")
+            for b in range(joystick.get_numbuttons())
+                print b,joystick.get_button(b)
         if event.type == pygame.JOYBUTTONUP:
             print("Joystick button released.")
         if event.type == pygame.JOYAXISMOTION:
             print("JOYAXISMOTION")    
-        if event.type == pygame.JOYHATMOTION:
-            print("JOYHATMOTION")
+        
     #wiringpi.pwmWrite(stop, 150)
     #wiringpi.pwmWrite(stop, 150)
     #time.sleep(delay_period)

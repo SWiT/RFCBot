@@ -7,9 +7,11 @@ servoleft = 18
 servoright = 13
 
 leftforward = 200
-rightforward = 50
-stop = 150
+leftstop = 149
 leftreverse = 50
+
+rightforward = 50
+rightstop = 147
 rightreverse = 200
 
 # use 'GPIO naming'
@@ -60,8 +62,8 @@ while run:
             y = joystick.get_axis(1)
             if x == 0 and y == 0:
                 print("Stop")
-                wiringpi.pwmWrite(servoleft, stop)
-                wiringpi.pwmWrite(servoright, stop)
+                wiringpi.pwmWrite(servoleft, leftstop)
+                wiringpi.pwmWrite(servoright, rightstop)
                 
             elif x == 0 and y > 0:
                 print("Forward")

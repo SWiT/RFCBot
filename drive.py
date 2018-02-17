@@ -6,16 +6,16 @@ import pygame
 servoleft = 18
 servoright = 13
 
-leftforward = 200
-leftstop = 149
-leftreverse = 50
+leftforward = 50
+leftstop = 148
+leftreverse = -50
 
-rightforward = 50
+rightforward = -50
 rightstop = 147
-rightreverse = 200
+rightreverse = 50
 
-def calcSpeed(direction, throttle):
-    return int((direction - stop) * throttle) + stop
+def calcSpeed(direction, stop, throttle):
+    return int((direction * throttle) + stop)
 
 
 # use 'GPIO naming'
@@ -84,43 +84,43 @@ while run:
                 
             elif x == 0 and y > 0:
                 print "Forward", throttle
-                wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, throttle))
-                wiringpi.pwmWrite(servoright, calcSpeed(rightforward, throttle))
+                wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, leftstop, throttle))
+                wiringpi.pwmWrite(servoright, calcSpeed(rightforward, rightstop, throttle))
                 
             elif x == 0 and y < 0:
                 print "Reverse", throttle 
-                wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, throttle))
-                wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, throttle))
+                wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, leftstop, throttle))
+                wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, rightstop, throttle))
                 
             elif x < 0 and y == 0:
                 print "Spin left", throttle
-                wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, throttle))
-                wiringpi.pwmWrite(servoright, calcSpeed(rightforward, throttle))
+                wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, leftstop, throttle))
+                wiringpi.pwmWrite(servoright, calcSpeed(rightforward, rightstop, throttle))
             
             elif x > 0 and y == 0:
                 print "Spin right", throttle 
-                wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, throttle))
-                wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, throttle))
+                wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, leftstop, throttle))
+                wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, rightstop, throttle))
                 
             elif x < 0 and y > 0:
                 print "Forward left", throttle
-                wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, throttle/2))
-                wiringpi.pwmWrite(servoright, calcSpeed(rightforward, throttle))
+                wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, leftstop, throttle/2))
+                wiringpi.pwmWrite(servoright, calcSpeed(rightforward, rightstop, throttle))
                 
             elif x > 0 and y > 0:
                 print "Forward right", throttle
-                wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, throttle))
-                wiringpi.pwmWrite(servoright, calcSpeed(rightforward, throttle/2))
+                wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, leftstop, throttle))
+                wiringpi.pwmWrite(servoright, calcSpeed(rightforward, rightstop, throttle/2))
                 
             elif x < 0 and y < 0:
                 print "Reverse left", throttle
-                wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, throttle/2))
-                wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, throttle))
+                wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, leftstop, throttle/2))
+                wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, rightstop, throttle))
             
             elif x > 0 and y < 0:
                 print "Reverse right", throttle
-                wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, throttle))
-                wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, throttle/2))
+                wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, leftstop, throttle))
+                wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, rightstop, throttle/2))
                 
     time.sleep(delay_period)
 

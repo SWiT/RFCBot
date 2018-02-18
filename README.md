@@ -46,3 +46,5 @@ nano attachwii.sh
 ./attachwii.sh
 
 
+# Add "/home/pi/RFCBot/start.sh &" before the "exit 0" line
+sudo nano /etc/rc.local

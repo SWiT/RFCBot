@@ -1,7 +1,7 @@
 # RFCBot #
 ## Python scripts for testing possible robot design ##
 
-### Install Raspian "Stretch" Lite to microSD card. ###
+#### Install Raspian "Stretch" Lite to microSD card. ####
 
 #### Set a Hostname, connect to wifi, enable SSH, localize, update, etc. ####
 ```

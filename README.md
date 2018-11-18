@@ -29,6 +29,7 @@ Add
 ```
 blacklist snd_bcm2835
 ```
+Reboot
 ```
 sudo reboot
 ```

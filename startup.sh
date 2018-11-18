@@ -2,8 +2,8 @@
 echo "Robot Fight Club Bot starting up..."
 
 # Attach Wiimote, start the drive.py script
-#/home/pi/RFCBot/attachwii.sh
-#python /home/pi/RFCBot/drive.py
+/home/pi/RFCBot/attachwii.sh &
+python /home/pi/RFCBot/drive.py &
 
 # Reverse port formwarding for SSH and VLC stream
 #/home/pi/RFCBot/reverseconn.sh

@@ -20,6 +20,19 @@ sudo apt install -y git screen python-pip python-pygame vlc
 sudo pip install wiringpi
 ```
 
+#### Blacklist sound driver. ####
+This frees up a timer for the servos 
+```
+sudo nano /etc/modprobe.d/raspi-blacklist.conf
+```
+Add
+```
+blacklist snd_bcm2835
+```
+```
+sudo reboot
+```
+
 #### Install and setup Wiimote controller ####
 ```
 sudo apt-get install bluetooth vorbis-tools python-cwiid wminput

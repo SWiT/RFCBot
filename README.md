@@ -9,14 +9,33 @@ sudo raspi-config
 reboot
 ```
 
-#### Update all other packages. ####
-`sudo apt update && sudo apt full-upgrade -y`
+#### Update all packages. ####
+```
+sudo apt update && sudo apt upgrade -y && && sudo apt full-upgrade -y && && sudo reboot
+```
 
 #### Install all the prerequisites. ####
 ```
 sudo apt install -y git screen python-pip python-pygame vlc
 sudo pip install wiringpi
 ```
+
+#### Install and setup Wiimote controller ####
+```
+sudo apt-get install bluetooth vorbis-tools python-cwiid wminput
+
+sudo tee /etc/udev/rules.d/wiimote.rules << EOF
+KERNEL=="uinput", MODE="0666"
+EOF
+
+sudo reboot
+```
+Scan for a Wiimote BT address
+`hcitool scan`
+Replace the address attachwii.sh
+`nano attachwii.sh`
+
+
 
 #### Install RFCBot ####
 ```
@@ -29,36 +48,20 @@ sudo python RFCBot/test.py
 ```
 raspivid -o - -t 0 -w 640 -h 480 -fps 30 |cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8160}' :demux=h264
 ```
+Set caching to 0ms on the VLC client.
 http://192.168.1.8:8160
-set caching to 0ms
 
 
-#### Reverse SSH connections ####
+
+#### Reverse SSH connections (in case of firewalls) ####
 ```
 ssh -R 2200:localhost:22 -R 8160:localhost:8160 USER@HOSTNAME
 ssh -p 2200 pi@localhost
 ```
-connect vlc to localhost:8160
+Connect VLC to localhost:8160
 
-#### Install and setup Wiimote controller ####
-```
-sudo apt-get install bluetooth vorbis-tools python-cwiid wminput
-
-sudo tee /etc/udev/rules.d/wiimote.rules << EOF
-KERNEL=="uinput", MODE="0666"
-EOF
-
-sudo reboot
-```
-
-#### Scan for a Wiimote BT address ####
-```
-hcitool scan
-nano attachwii.sh
-./attachwii.sh
-```
-
-#### Add "/home/pi/RFCBot/start.sh &" before the "exit 0" line ####
-```
-sudo nano /etc/rc.local
-```
+#### Set scripts to start on bootup ####
+Add 
+`/home/pi/RFCBot/start.sh &`
+before the line "exit 0".
+`sudo nano /etc/rc.local`

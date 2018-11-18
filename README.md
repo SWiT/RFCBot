@@ -31,9 +31,13 @@ EOF
 sudo reboot
 ```
 Scan for a Wiimote BT address
-`hcitool scan`
+```
+hcitool scan
+```
 Replace the address attachwii.sh
-`nano attachwii.sh`
+```
+nano attachwii.sh
+```
 
 
 
@@ -62,6 +66,10 @@ Connect VLC to localhost:8160
 
 #### Set scripts to start on bootup ####
 Add 
-`/home/pi/RFCBot/start.sh &`
+```
+/home/pi/RFCBot/start.sh &
+```
 before the line "exit 0".
-`sudo nano /etc/rc.local`
+```
+sudo nano /etc/rc.local
+```

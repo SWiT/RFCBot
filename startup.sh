@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "*************************************\n* Robot Fight Club Bot starting up. *\n*************************************"
+echo "******************** Robot Fight Club Bot starting up. ********************"
 
 # Attach Wiimote, start the drive.py script
 /home/pi/RFCBot/attachwii.sh &

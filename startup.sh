@@ -6,10 +6,10 @@ echo "Robot Fight Club Bot starting up..."
 python /home/pi/RFCBot/drive.py &
 
 # Reverse port formwarding for SSH and VLC stream
-#/home/pi/RFCBot/reverseconn.sh
+#/home/pi/RFCBot/reverseconn.sh &
 
 # Start the video stream
-#/home/pi/RFCBot/streamvideo.sh
+#/home/pi/RFCBot/streamvideo.sh &
 
 # Run in Autonomus Robot mode
 #???

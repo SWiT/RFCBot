@@ -16,8 +16,7 @@ sudo apt update && sudo apt upgrade -y && && sudo apt full-upgrade -y && && sudo
 
 #### Install all the prerequisites. ####
 ```
-sudo apt install -y git screen python-pip python-pygame vlc
-sudo pip install wiringpi
+sudo apt install -y git screen python-pip python-pygame vlc wiringpi build-essential python-dev bluetooth vorbis-tools python-cwiid wminput
 ```
 
 #### Blacklist sound driver. ####
@@ -36,8 +35,6 @@ sudo reboot
 
 #### Install and setup Wiimote controller ####
 ```
-sudo apt-get install bluetooth vorbis-tools python-cwiid wminput
-
 sudo tee /etc/udev/rules.d/wiimote.rules << EOF
 KERNEL=="uinput", MODE="0666"
 EOF
@@ -48,18 +45,23 @@ Scan for a Wiimote BT address
 ```
 hcitool scan
 ```
-Replace the address attachwii.sh
+Replace the address in attachwii.sh
 ```
 nano attachwii.sh
 ```
-
-
 
 #### Install RFCBot ####
 ```
 cd ~
 git clone https://github.com/SWiT/RFCBot.git
-sudo python RFCBot/test.py
+```
+
+#### Adafruit ADXL345 library ####
+```
+cd ~
+git clone https://github.com/adafruit/Adafruit_Python_ADXL345.git
+cd Adafruit_Python_ADXL345
+sudo python setup.py install
 ```
 
 #### Start a video stream ####
@@ -68,7 +70,6 @@ raspivid -o - -t 0 -w 640 -h 480 -fps 30 |cvlc -vvv stream:///dev/stdin --sout '
 ```
 Set caching to 0ms on the VLC client.
 http://192.168.1.8:8160
-
 
 
 #### Reverse SSH connections (in case of firewalls) ####

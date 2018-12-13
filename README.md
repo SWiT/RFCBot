@@ -11,8 +11,7 @@ reboot
 
 #### Install RFCBot ####
 ```
-cd ~
-git clone https://github.com/SWiT/RFCBot.git
+cd ~ && git clone https://github.com/SWiT/RFCBot.git
 ```
 
 #### Update all packages. Update RPi firmware. Install all the required packages. ####
@@ -22,10 +21,7 @@ sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo rpi-u
 
 #### Adafruit ADXL345 library ####
 ```
-cd ~
-git clone https://github.com/adafruit/Adafruit_Python_ADXL345.git
-cd Adafruit_Python_ADXL345
-sudo python setup.py install
+cd ~ && git clone https://github.com/adafruit/Adafruit_Python_ADXL345.git && cd Adafruit_Python_ADXL345 && sudo python setup.py install
 ```
 
 #### Blacklist sound driver. ####
@@ -60,16 +56,23 @@ Add the following before the "exit 0" line.
 ```
 /home/pi/RFCBot/startup.sh &
 ```
+Reboot and press 1+2 on the Wiimote. If you don't the Rpi Zero W turns into a WiFi jammer of sorts and you'll lose network connection until you pair the wiimote or reboot.
+
+#### Set scripts to stop on shutdown ####
+The system will hang if the scripts are running at shutdown.
+```
+sudo ln -s /home/pi/RFCBot/killbot.sh /lib/systemd/system-shutdown/
+```
 
 
 
+#### Optional Stuff ####
 #### Start a video stream ####
 ```
 raspivid -o - -t 0 -w 640 -h 480 -fps 30 |cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8160}' :demux=h264
 ```
 Set caching to 0ms on the VLC client.
 http://192.168.1.8:8160
-
 
 #### Reverse SSH connections (in case of firewalls) ####
 ```

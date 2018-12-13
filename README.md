@@ -83,8 +83,9 @@ ssh -p 2200 pi@localhost
 Connect VLC to localhost:8160
 
 #### Create an Image of the SD Card ####
-Clean up any unused packages.
+Disable wiimotes. Remove excess wifi networks. Clean up any unused packages.
 ```
+nano ~/RFCBot/startup.sh
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 sudo apt autoremove
 sudo poweroff
@@ -105,6 +106,12 @@ sudo ~/PiShrink/pishrink.sh imagename.img
 zip imagename.zip imagename.img
 rm imagename.img
 ```
+I first boot it's worth running a disk check
+```
+sudo touch /forcefsck
+sudo shutdown -r -F now
+```
+
 
 
 

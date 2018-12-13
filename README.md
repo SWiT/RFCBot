@@ -3,7 +3,8 @@
 
 #### Install Raspian "Stretch" Lite to microSD card. ####
 
-#### Set a password, set a hostname, connect to wifi, wait for network on boot, localize, enable SSH, enable I2C, enable camera, etc. ####
+#### Configure the RPi Zero W ####
+Set a password, set a hostname, connect to wifi, wait for network on boot, localize, enable camera, enable SSH, and enable I2C.
 ```
 sudo raspi-config
 ```
@@ -32,7 +33,7 @@ blacklist snd_bcm2835
 EOF
 ```
 
-#### Install and setup Wiimote controller ####
+#### Setup Wiimote controller ####
 ```
 sudo tee /etc/udev/rules.d/wiimote.rules << EOF
 KERNEL=="uinput", MODE="0666"
@@ -56,7 +57,7 @@ Add the following before the "exit 0" line.
 ```
 /home/pi/RFCBot/startup.sh &
 ```
-Reboot and press 1+2 on the Wiimote. If you don't the Rpi Zero W turns into a WiFi jammer of sorts and you'll lose network connection until you pair the wiimote or reboot.
+Reboot and press 1+2 on the Wiimote. If you don't the Rpi Zero W turns into a WiFi jammer of sorts and you'll lose network connection until you pair the wiimote or reboot. This can effect other WiFi devices.
 
 #### Set scripts to stop on shutdown ####
 The system will hang if the scripts are running at shutdown.

@@ -89,28 +89,32 @@ Connect VLC to localhost:8160
 #### Create an Image of the SD Card ####
 Disable wiimotes. Remove excess wifi networks. Clean up any unused packages.
 ```
+~/RFCBot/killbot.sh
 nano ~/RFCBot/startup.sh
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 sudo apt autoremove
 sudo poweroff
 ```
+
 Pull the SD card and plug it into a Ubuntu Machine
 ```
 sudo apt install dcfldd gparted
 df -h
 sudo umount /dev/sdX1 /dev/sdX2
-sudo dcfldd sizeprobe=if if=/dev/sdX of=imagename.img
+sudo dcfldd sizeprobe=if if=/dev/sdX of=rfcbot.img
 sudo sync
 ```
 Remove the SD card.
 Shrink the img file
 ```
 cd ~ && git clone https://github.com/Drewsif/PiShrink.git
-sudo ~/PiShrink/pishrink.sh imagename.img
-zip imagename.zip imagename.img
-rm imagename.img
+sudo ~/PiShrink/pishrink.sh rfcbot.img
+zip -v rfcbot.zip rfcbot.img
+rm rfcbot.img
 ```
-I first boot it's worth running a disk check
+
+#### Check Disk After Resize ####
+It's worth running a disk check after the partition size it automatically expanded on first boot.
 ```
 sudo touch /forcefsck
 sudo shutdown -r -F now

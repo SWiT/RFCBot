@@ -57,7 +57,11 @@ Add the following before the "exit 0" line.
 ```
 /home/pi/RFCBot/startup.sh &
 ```
-Reboot and press 1+2 on the Wiimote. If you don't the Rpi Zero W turns into a WiFi jammer of sorts and you'll lose network connection until you pair the wiimote or reboot. This can effect other WiFi devices.
+Edit startup.sh to enable the scripts you want.
+```
+nano /home/pi/RFCBot/startup.sh
+```
+If you enable attchwii.sh on startup, press 1+2 on the Wiimote. If you don't the Rpi Zero W turns essentially turns into a WiFi jammer and you'll lose network connection until you pair the wiimote or reboot. This can effect other WiFi devices.
 
 #### Set scripts to stop on shutdown ####
 The system will hang if the scripts are running at shutdown. (Hmmm, this doesn't ALWAYS work. Stupid systemd...)

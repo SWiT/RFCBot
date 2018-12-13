@@ -60,7 +60,7 @@ Add the following before the "exit 0" line.
 Reboot and press 1+2 on the Wiimote. If you don't the Rpi Zero W turns into a WiFi jammer of sorts and you'll lose network connection until you pair the wiimote or reboot. This can effect other WiFi devices.
 
 #### Set scripts to stop on shutdown ####
-The system will hang if the scripts are running at shutdown.
+The system will hang if the scripts are running at shutdown. (Hmmm, this doesn't ALWAYS work. Stupid systemd...)
 ```
 sudo ln -s /home/pi/RFCBot/killbot.sh /lib/systemd/system-shutdown/
 ```
@@ -81,6 +81,30 @@ ssh -R 2200:localhost:22 -R 8160:localhost:8160 USER@HOSTNAME
 ssh -p 2200 pi@localhost
 ```
 Connect VLC to localhost:8160
+
+#### Create an Image of the SD Card ####
+Clean up any unused packages.
+```
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+sudo apt autoremove
+sudo poweroff
+```
+Pull the SD card and plug it into a Ubuntu Machine
+```
+sudo apt install dcfldd gparted
+df -h
+sudo umount /dev/sdX1 /dev/sdX2
+sudo dcfldd sizeprobe=if if=/dev/sdX of=imagename.img
+sudo sync
+```
+Remove the SD card.
+Shrink the img file
+```
+cd ~ && git clone https://github.com/Drewsif/PiShrink.git
+sudo ~/PiShrink/pishrink.sh imagename.img
+zip imagename.zip imagename.img
+rm imagename.img
+```
 
 
 

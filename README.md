@@ -3,57 +3,21 @@
 
 #### Install Raspian "Stretch" Lite to microSD card. ####
 
-#### Set a Hostname, connect to wifi, enable SSH, localize, update, etc. ####
+#### Set a password, set a hostname, connect to wifi, wait for network on boot, localize, enable SSH, enable I2C, enable camera, etc. ####
 ```
 sudo raspi-config
+```
 reboot
-```
-
-#### Update all packages. ####
-```
-sudo apt update && sudo apt upgrade -y && && sudo apt full-upgrade -y && && sudo reboot
-```
-
-#### Install all the prerequisites. ####
-```
-sudo apt install -y git screen python-pip python-pygame vlc wiringpi build-essential python-dev bluetooth vorbis-tools python-cwiid wminput
-```
-
-#### Blacklist sound driver. ####
-This frees up a timer for the servos 
-```
-sudo nano /etc/modprobe.d/raspi-blacklist.conf
-```
-Add
-```
-blacklist snd_bcm2835
-```
-Reboot
-```
-sudo reboot
-```
-
-#### Install and setup Wiimote controller ####
-```
-sudo tee /etc/udev/rules.d/wiimote.rules << EOF
-KERNEL=="uinput", MODE="0666"
-EOF
-
-sudo reboot
-```
-Scan for a Wiimote BT address
-```
-hcitool scan
-```
-Replace the address in attachwii.sh
-```
-nano attachwii.sh
-```
 
 #### Install RFCBot ####
 ```
 cd ~
 git clone https://github.com/SWiT/RFCBot.git
+```
+
+#### Update all packages. Update RPi firmware. Install all the required packages. ####
+```
+sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo rpi-update && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth vorbis-tools python-cwiid wminput i2c-tools && sudo pip install wiringpi
 ```
 
 #### Adafruit ADXL345 library ####
@@ -63,6 +27,41 @@ git clone https://github.com/adafruit/Adafruit_Python_ADXL345.git
 cd Adafruit_Python_ADXL345
 sudo python setup.py install
 ```
+
+#### Blacklist sound driver. ####
+This frees up a timer for the servos 
+```
+sudo tee /etc/modprobe.d/raspi-blacklist.conf << EOF
+blacklist snd_bcm2835
+EOF
+```
+
+#### Install and setup Wiimote controller ####
+```
+sudo tee /etc/udev/rules.d/wiimote.rules << EOF
+KERNEL=="uinput", MODE="0666"
+EOF
+```
+Scan for a Wiimote BT addresses. Press 1 + 2.
+```
+hcitool scan
+```
+Replace the address in attachwii.sh
+```
+nano ~/RFCBot/attachwii.sh
+```
+
+#### Set scripts to start on bootup ####
+Edit 
+```
+sudo nano /etc/rc.local
+```
+Add the following before the "exit 0" line.
+```
+/home/pi/RFCBot/startup.sh &
+```
+
+
 
 #### Start a video stream ####
 ```
@@ -79,12 +78,6 @@ ssh -p 2200 pi@localhost
 ```
 Connect VLC to localhost:8160
 
-#### Set scripts to start on bootup ####
-Add 
-```
-/home/pi/RFCBot/start.sh &
-```
-before the line "exit 0".
-```
-sudo nano /etc/rc.local
-```
+
+
+

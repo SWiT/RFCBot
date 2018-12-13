@@ -33,6 +33,6 @@ Nunchuk.C = BTN_C
 Nunchuk.Z = BTN_Z
 
 Plugin.led.Led1 = 1
-#Plugin.led.Led2 = 1
-#Plugin.led.Led3 = 1
-#Plugin.led.Led4 = 1
+Plugin.led.Led2 = 1
+Plugin.led.Led3 = 1
+Plugin.led.Led4 = 1

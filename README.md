@@ -67,7 +67,7 @@ sudo ln -s /home/pi/RFCBot/killbot.sh /lib/systemd/system-shutdown/
 
 
 
-#### Optional Stuff ####
+### Optional Stuff ###
 #### Start a video stream ####
 ```
 raspivid -o - -t 0 -w 640 -h 480 -fps 30 |cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8160}' :demux=h264

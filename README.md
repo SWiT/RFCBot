@@ -1,5 +1,5 @@
 # RFCBot #
-## Python scripts for testing possible robot design ##
+## Python scripts for testing robot design ##
 
 #### Install Raspian "Stretch" Lite to microSD card. ####
 
@@ -17,7 +17,7 @@ cd ~ && git clone https://github.com/SWiT/RFCBot.git
 
 #### Update all packages. Update RPi firmware. Install all the required packages. ####
 ```
-sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo rpi-update && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth vorbis-tools python-cwiid wminput i2c-tools && sudo pip install wiringpi
+sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo rpi-update && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth vorbis-tools && sudo pip install wiringpi
 ```
 
 #### Adafruit ADXL345 library ####
@@ -33,21 +33,6 @@ blacklist snd_bcm2835
 EOF
 ```
 
-#### Setup Wiimote controller ####
-```
-sudo tee /etc/udev/rules.d/wiimote.rules << EOF
-KERNEL=="uinput", MODE="0666"
-EOF
-```
-Scan for a Wiimote BT addresses. Press 1 + 2.
-```
-hcitool scan
-```
-Replace the address in attachwii.sh
-```
-nano ~/RFCBot/attachwii.sh
-```
-
 #### Set scripts to start on bootup ####
 Edit 
 ```
@@ -61,7 +46,6 @@ Edit startup.sh to enable the scripts you want.
 ```
 nano /home/pi/RFCBot/startup.sh
 ```
-If you enable attchwii.sh on startup, press 1+2 on the Wiimote. If you don't the Rpi Zero W turns essentially turns into a WiFi jammer and you'll lose network connection until you pair the wiimote or reboot. This can effect other WiFi devices.
 
 #### Set scripts to stop on shutdown ####
 The system will hang if the scripts are running at shutdown. (Hmmm, this doesn't ALWAYS work. Stupid systemd...)
@@ -72,6 +56,25 @@ sudo ln -s /home/pi/RFCBot/killbot.sh /lib/systemd/system-shutdown/
 
 
 ### Optional Stuff ###
+
+#### Pair Bluetooth Controller ####
+```
+sudo bluetoothctl
+```
+```
+[bluetooth]# agent on
+[bluetooth]# default-agent
+[bluetooth]# scan on
+
+Copy the devices XX:XX:XX:XX:XX:XX address.
+
+[bluetooth]# scan off
+[bluetooth]# pair XX:XX:XX:XX:XX:XX
+[bluetooth]# connect XX:XX:XX:XX:XX:XX
+[bluetooth]# trust XX:XX:XX:XX:XX:XX
+[bluetooth]# quit
+```
+
 #### Start a video stream ####
 ```
 raspivid -o - -t 0 -w 640 -h 480 -fps 30 |cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8160}' :demux=h264
@@ -87,7 +90,7 @@ ssh -p 2200 pi@localhost
 Connect VLC to localhost:8160
 
 #### Create an Image of the SD Card ####
-Disable wiimotes. Remove excess wifi networks. Clean up any unused packages.
+Remove excess wifi networks. Clean up any unused packages.
 ```
 ~/RFCBot/killbot.sh
 nano ~/RFCBot/startup.sh

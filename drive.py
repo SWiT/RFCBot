@@ -15,6 +15,10 @@ rightforward = -50
 rightstop = 147
 rightreverse = 50
 
+delay_period = 0.01
+throttle = 0.40
+accel = 0.05
+
 def calcSpeed(direction, stop, throttle):
     return int((direction * throttle) + stop)
 
@@ -42,16 +46,15 @@ pygame.joystick.init()
 joystickcount = pygame.joystick.get_count()
 print("RFC: "+str(joystickcount)+" Joysticks")
 if joystickcount < 1:
-    run = False
     print "RFC: Waiting for Joystick..."
-else:    
-    joystick = pygame.joystick.Joystick(0)
-    joystick.init()
-    print("RFC: "+str(joystick.get_numbuttons())+" Buttons")
+while joystickcount < 1:
+    time.sleep(delay_period)
+    joystickcount = pygame.joystick.get_count()
     
-delay_period = 0.01
-throttle = 0.40
-accel = 0.05
+joystick = pygame.joystick.Joystick(0)
+joystick.init()
+print("RFC: Joystick(0) "+str(joystick.get_numbuttons())+" Buttons")
+    
 
 while run:
     for event in pygame.event.get():

@@ -17,12 +17,16 @@ cd ~ && git clone https://github.com/SWiT/RFCBot.git
 
 #### Update all packages. Update RPi firmware. Install all the required packages. ####
 ```
-sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo rpi-update && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth vorbis-tools && sudo pip install wiringpi
+sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo rpi-update && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth i2c-tools vorbis-tools && sudo pip install wiringpi
 ```
 
 #### Adafruit ADXL345 library ####
 ```
 cd ~ && git clone https://github.com/adafruit/Adafruit_Python_ADXL345.git && cd Adafruit_Python_ADXL345 && sudo python setup.py install
+```
+Test the sensor.
+```
+python Adafruit_Python_ADXL345/examples/simpletest.py
 ```
 
 #### Blacklist sound driver. ####

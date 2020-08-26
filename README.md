@@ -90,11 +90,12 @@ ssh -p 2200 pi@localhost
 Connect VLC to localhost:8160
 
 #### Create an Image of the SD Card ####
-Remove excess wifi networks. Clean up any unused packages.
+Remove excess wifi networks. Clean up any unused packages. Delete SSH keys etc.
 ```
 ~/RFCBot/killbot.sh
 nano ~/RFCBot/startup.sh
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+sudo rm -f ~/.ssh/*
 sudo apt autoremove
 sudo poweroff
 ```

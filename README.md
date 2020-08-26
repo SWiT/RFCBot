@@ -26,7 +26,7 @@ cd ~ && git clone https://github.com/adafruit/Adafruit_Python_ADXL345.git && cd 
 ```
 Test the sensor.
 ```
-python Adafruit_Python_ADXL345/examples/simpletest.py
+python ~/Adafruit_Python_ADXL345/examples/simpletest.py
 ```
 
 #### Blacklist sound driver. ####

@@ -1,4 +1,5 @@
-# Servo Control
+# Robot Fight Club driving script
+print "RFC: launching drive.py."
 import time
 import wiringpi
 import pygame
@@ -39,13 +40,14 @@ pygame.joystick.init()
 
 
 joystickcount = pygame.joystick.get_count()
-print(str(joystickcount)+" Joysticks")
+print("RFC: "+str(joystickcount)+" Joysticks")
 if joystickcount < 1:
     run = False
+    print "RFC: Waiting for Joystick..."
 else:    
     joystick = pygame.joystick.Joystick(0)
     joystick.init()
-    print(str(joystick.get_numbuttons())+" Buttons")
+    print("RFC: "+str(joystick.get_numbuttons())+" Buttons")
     
 delay_period = 0.01
 throttle = 0.40
@@ -78,52 +80,52 @@ while run:
             y = joystick.get_axis(1)
             
             if x == 0 and y == 0:
-                print("Stop")
+                print("RFC: Stop")
                 wiringpi.pwmWrite(servoleft, leftstop)
                 wiringpi.pwmWrite(servoright, rightstop)
                 
             elif x == 0 and y > 0:
-                print "Forward", throttle
+                print "RFC: Forward", throttle
                 wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, leftstop, throttle))
                 wiringpi.pwmWrite(servoright, calcSpeed(rightforward, rightstop, throttle))
                 
             elif x == 0 and y < 0:
-                print "Reverse", throttle 
+                print "RFC: Reverse", throttle 
                 wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, leftstop, throttle))
                 wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, rightstop, throttle))
                 
             elif x < 0 and y == 0:
-                print "Spin left", throttle
+                print "RFC: Spin left", throttle
                 wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, leftstop, throttle))
                 wiringpi.pwmWrite(servoright, calcSpeed(rightforward, rightstop, throttle))
             
             elif x > 0 and y == 0:
-                print "Spin right", throttle 
+                print "RFC: Spin right", throttle 
                 wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, leftstop, throttle))
                 wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, rightstop, throttle))
                 
             elif x < 0 and y > 0:
-                print "Forward left", throttle
+                print "RFC: Forward left", throttle
                 wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, leftstop, throttle/2))
                 wiringpi.pwmWrite(servoright, calcSpeed(rightforward, rightstop, throttle))
                 
             elif x > 0 and y > 0:
-                print "Forward right", throttle
+                print "RFC: Forward right", throttle
                 wiringpi.pwmWrite(servoleft, calcSpeed(leftforward, leftstop, throttle))
                 wiringpi.pwmWrite(servoright, calcSpeed(rightforward, rightstop, throttle/2))
                 
             elif x < 0 and y < 0:
-                print "Reverse left", throttle
+                print "RFC: Reverse left", throttle
                 wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, leftstop, throttle/2))
                 wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, rightstop, throttle))
             
             elif x > 0 and y < 0:
-                print "Reverse right", throttle
+                print "RFC: Reverse right", throttle
                 wiringpi.pwmWrite(servoleft, calcSpeed(leftreverse, leftstop, throttle))
                 wiringpi.pwmWrite(servoright, calcSpeed(rightreverse, rightstop, throttle/2))
                 
     time.sleep(delay_period)
 
 pygame.joystick.quit()
-print "exit."
+print "RFC: drive.py exit."
 

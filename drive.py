@@ -49,6 +49,7 @@ if joystickcount < 1:
     print "RFC: Waiting for Joystick..."
 while joystickcount < 1:
     time.sleep(delay_period*100)
+    pygame.joystick.quit()
     pygame.joystick.init()
     joystickcount = pygame.joystick.get_count()
     

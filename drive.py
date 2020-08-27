@@ -1,5 +1,6 @@
 # Robot Fight Club driving script
 print "RFC: launching drive.py."
+
 import time
 import wiringpi
 import pygame
@@ -68,13 +69,13 @@ while run:
                     throttle = throttle + accel
                     if throttle > 1:
                         throttle = 1
-                    print "Faster", throttle
+                    print "RFC: Faster", throttle
                     
                 if joystick.get_button(b) and b%2==1:
                     throttle = throttle - accel
                     if throttle < 0:
                         throttle = 0
-                    print "Slower", throttle
+                    print "RFC: Slower", throttle
                         
         if event.type == pygame.JOYBUTTONUP:
             #print("Joystick button released.")

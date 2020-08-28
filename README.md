@@ -10,14 +10,14 @@ sudo raspi-config
 ```
 reboot
 
-#### Install RFCBot ####
-```
-cd ~ && git clone https://github.com/SWiT/RFCBot.git
-```
-
 #### Update all packages. Update RPi firmware. Install all the required packages. ####
 ```
 sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo rpi-update && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth i2c-tools vorbis-tools && sudo pip install wiringpi
+```
+
+#### Install RFCBot ####
+```
+cd ~ && git clone https://github.com/SWiT/RFCBot.git
 ```
 
 #### Adafruit ADXL345 library ####

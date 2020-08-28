@@ -1,4 +1,4 @@
-# Robot Fight Club driving script
+# Robot Fight Club driving script.
 print "RFC: launching drive.py."
 
 import time
@@ -12,6 +12,9 @@ bot = rfcbot.RFCBot()
 drivehat = 0        # The joystick hat used to drive.
 driveaxislr = 0     # The Left and Right joystick axis.
 driveaxisfb = 1     # The Forwards and Backwards joystick axis.
+
+driveaxisL = 1     # The Forwards and Backwards joystick axis.
+driveaxisR = 3     # The Forwards and Backwards joystick axis.
 
 waiting_period = 1.0
 delay_period = 0.01
@@ -38,7 +41,7 @@ joystick.init()
 print("RFC: Joystick(0) "+str(joystick.get_numbuttons())+" Buttons")
 
 
-def drive(x, y):
+def joystickToDrive(x, y):
     if x == 0 and y == 0:
         bot.stop()
         
@@ -90,7 +93,7 @@ while run:
                 print "RFC: HAT ", h, hat
                 x = hat[0]
                 y = hat[1]
-                drive(x, y)
+                joystickToDrive(x, y)
                 
         # Axis Motion    
         if event.type == pygame.JOYAXISMOTION:
@@ -98,9 +101,13 @@ while run:
             for a in range(joystick.get_numaxes()):
                 axes += str(joystick.get_axis(a)) + " "
             print "RFC: AXES ", axes
-            x = joystick.get_axis(driveaxislr)
-            y = -1 * joystick.get_axis(driveaxisfb)
-            drive(x, y)
+            #x = joystick.get_axis(driveaxislr)
+            #y = -1 * joystick.get_axis(driveaxisfb)
+            #joystickToDrive(x, y)
+            
+            leftspeed = -1.0 * joystick.get_axis(driveaxisL)
+            rightspeed = -1.0 * joystick.get_axis(driveaxisR)
+            bot.setServos(leftspeed, rightspeed)
             
                 
     time.sleep(delay_period)

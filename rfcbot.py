@@ -1,13 +1,13 @@
 import wiringpi
 
 class RFCBot:
-    # Class for interacting with the Robot Fight Club RPi0W Bot
+    # Class for interacting with the Robot Fight Club RPi0W Bot.
     
     servoleft = 18      # Left servo GPIO pin
     servoright = 13     # Right servo GPIO pin
 
     LF = 50     # Max offset for the left servos forward direction
-    LS = 148    # The left servos stopped position
+    LS = 147    # The left servos stopped position
     LR = -50    # Max offset for the left servos reverse direction
 
     RF = -50
@@ -32,6 +32,11 @@ class RFCBot:
         wiringpi.pwmSetClock(192)
         wiringpi.pwmSetRange(2000)
 
+    def setServos(self, leftspeed, rightspeed):
+        print "RFC: Set servos", leftspeed, rightspeed
+        wiringpi.pwmWrite(self.servoleft, self.calcPWM(self.LF, self.LS, leftspeed))
+        wiringpi.pwmWrite(self.servoright, self.calcPWM(self.RF, self.RS, rightspeed))
+        
     def calcPWM(self, direction, stop, throttle):
         return int((direction * throttle) + stop)
     

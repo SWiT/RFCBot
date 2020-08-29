@@ -55,7 +55,7 @@ nano /home/pi/RFCBot/startup.sh
 #### Set scripts to stop on shutdown ####
 The system will hang if the scripts are running at shutdown.
 ```
-sudo mkdir /usr/lib/systemd/system-shutdown/ && sudo ln -s /home/pi/RFCBot/killbot.sh /usr/lib/systemd/system-shutdown/
+sudo ln -s /home/pi/RFCBot/killbot.sh /lib/systemd/system-shutdown/
 ```
 
 

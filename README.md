@@ -10,9 +10,10 @@ sudo raspi-config
 ```
 reboot
 
-#### Update all packages. Update RPi firmware. Install all the required packages. ####
+#### Update all packages. Install all the required packages. Update RPi firmware. ####
 ```
-sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo rpi-update && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth i2c-tools vorbis-tools && sudo pip install wiringpi
+sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth i2c-tools vorbis-tools && sudo pip install wiringpi
+sudo rpi-update
 ```
 
 #### Install RFCBot ####

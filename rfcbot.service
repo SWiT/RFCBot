@@ -1,0 +1,12 @@
+[Unit]
+Description=RFCBot
+DefaultDependencies=no
+After=final.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/home/pi/RFCBot/rootkillbot.sh
+
+[Install]
+WantedBy=final.target

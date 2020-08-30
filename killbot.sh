@@ -1,7 +1,6 @@
 #!/bin/bash
-echo "******************"
-
-echo "RFC: Kill drive.py"
-sudo pkill -ef -9 "python.*drive\.py"
-touch /home/pi/RFCBot/killedonshutdown
-echo "******************"
+/bin/echo "******************"
+/bin/echo "RFC: Kill drive.py"
+/usr/bin/sudo /usr/bin/pkill -ef -9 "python.*drive\.py"
+/bin/touch /home/pi/RFCBot/killed
+/bin/echo "******************"

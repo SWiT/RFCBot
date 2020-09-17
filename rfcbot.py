@@ -3,18 +3,19 @@ import json
 
 class RFCBot:
     # Class for interacting with the Robot Fight Club RPi0W Bot.
+    configfile = "/home/pi/RFCBot/config.json"
     config = {}
     throttle = 1.0
-
+    
     def saveConfig(self):
         data = {}
         data['rfcbot'] = self.config
-        with open('config.json', 'w') as outfile:
+        with open(self.configfile, 'w') as outfile:
             json.dump(data, outfile, indent=4, sort_keys=True)
         print "Config Saved.", self.config
 
     def loadConfig(self):
-        with open('config.json') as json_file:
+        with open(self.configfile) as json_file:
             data = json.load(json_file)
         self.config = data['rfcbot']
         print "Config Loaded.", self.config

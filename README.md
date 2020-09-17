@@ -45,18 +45,15 @@ sudo nano /etc/rc.local
 ```
 Add the following before the "exit 0" line.
 ```
-/home/pi/RFCBot/startup.sh &
+/home/pi/RFCBot/startbot.sh &
 ```
 Edit startup.sh to enable the scripts you want.
 ```
-nano /home/pi/RFCBot/startup.sh
+nano /home/pi/RFCBot/startbot.sh
 ```
 
 #### Set scripts to stop on shutdown ####
-The system will hang if the scripts are running at shutdown.
-```
-sudo ln -s /home/pi/RFCBot/killbot.sh /lib/systemd/system-shutdown/
-```
+The system will hang if the scripts are running at shutdown. I think I need to setup an actual systemd service :(
 
 
 

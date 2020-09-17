@@ -10,14 +10,15 @@ sudo raspi-config
 ```
 reboot
 
+#### Update all packages. Install all the required packages. Update RPi firmware. ####
+```
+sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth i2c-tools vorbis-tools && sudo pip install wiringpi
+sudo rpi-update
+```
+
 #### Install RFCBot ####
 ```
 cd ~ && git clone https://github.com/SWiT/RFCBot.git
-```
-
-#### Update all packages. Update RPi firmware. Install all the required packages. ####
-```
-sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo rpi-update && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth i2c-tools vorbis-tools && sudo pip install wiringpi
 ```
 
 #### Adafruit ADXL345 library ####
@@ -52,7 +53,7 @@ nano /home/pi/RFCBot/startup.sh
 ```
 
 #### Set scripts to stop on shutdown ####
-The system will hang if the scripts are running at shutdown. (Hmmm, this doesn't ALWAYS work. Stupid systemd...)
+The system will hang if the scripts are running at shutdown.
 ```
 sudo ln -s /home/pi/RFCBot/killbot.sh /lib/systemd/system-shutdown/
 ```

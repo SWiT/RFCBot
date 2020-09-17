@@ -57,7 +57,7 @@ pygame.init()
 # Initialize any joysticks
 pygame.joystick.init()
 # If no joystick then wait.
-joystickcount = pygame.joystick.get_count()
+joystickcount = pygame.joystick.get_count() 
 if joystickcount < 1:
     print "RFC: Waiting for Joystick..."
 while joystickcount < 1:
@@ -119,6 +119,7 @@ while run:
                 if joystick.get_button(cbhotkey):
                     y = hat[1]
                     calibrateServo(y)
+                    bot.stop()
                 else:
                     x = hat[0]
                     y = hat[1]

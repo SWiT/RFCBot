@@ -41,31 +41,23 @@ joystick.init()
 print("RFC: Joystick(0) "+str(joystick.get_numbuttons())+" Buttons")
 
 
-def joystickToDrive(x, y):
+def hatToDrive(x, y):
     if x == 0 and y == 0:
         bot.stop()
-        
     elif x == 0 and y > 0:
-        bot.forward()
-        
+        bot.forward()        
     elif x == 0 and y < 0:
         bot.reverse()
-        
     elif x < 0 and y == 0:
         bot.spinleft()
-    
     elif x > 0 and y == 0:
         bot.spinright()
-        
     elif x < 0 and y > 0:
         bot.turnforwardleft()
-        
     elif x > 0 and y > 0:
         bot.turnforwardright()
-        
     elif x < 0 and y < 0:
         bot.turnreverseleft()
-    
     elif x > 0 and y < 0:
         bot.turnreverseright()
     
@@ -93,7 +85,7 @@ while run:
                 print "RFC: HAT ", h, hat
                 x = hat[0]
                 y = hat[1]
-                joystickToDrive(x, y)
+                hatToDrive(x, y)
                 
         # Axis Motion    
         if event.type == pygame.JOYAXISMOTION:
@@ -101,9 +93,6 @@ while run:
             for a in range(joystick.get_numaxes()):
                 axes += str(joystick.get_axis(a)) + " "
             print "RFC: AXES ", axes
-            #x = joystick.get_axis(driveaxislr)
-            #y = -1 * joystick.get_axis(driveaxisfb)
-            #joystickToDrive(x, y)
             
             leftspeed = -1.0 * joystick.get_axis(driveaxisL)
             rightspeed = -1.0 * joystick.get_axis(driveaxisR)

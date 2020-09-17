@@ -12,7 +12,7 @@ reboot
 
 #### Update all packages. Install all the required packages. Update RPi firmware. ####
 ```
-sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth i2c-tools vorbis-tools && sudo pip install wiringpi
+sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt install -y git screen python-pip python-pygame vlc build-essential python-dev bluetooth python-smbus i2c-tools python-pil python-setuptools vorbis-tools && sudo pip install wiringpi
 sudo rpi-update
 ```
 
@@ -128,6 +128,17 @@ It's worth running a disk check after the partition size it automatically expand
 sudo touch /forcefsck
 sudo shutdown -r -F now
 ```
+
+
+
+#### OLED ####
+```
+cd ~
+git clone https://github.com/adafruit/Adafruit_Python_SSD1306.git && cd Adafruit_Python_SSD1306 && sudo python setup.py install
+```
+
+
+
 
 
 

@@ -134,7 +134,14 @@ cd ~
 git clone https://github.com/adafruit/Adafruit_Python_SSD1306.git && cd Adafruit_Python_SSD1306 && sudo python setup.py install
 ```
 
+#### MPU-6050 ####
+```
+sudo apt-get install python3-pip
+sudo apt install python3-smbus
 
+sudo apt install python-smbus
+sudo pip install mpu6050-raspberrypi
+```
 
 
 

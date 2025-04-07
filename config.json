@@ -1,20 +1,28 @@
 {
     "rfcbot": {
-        "name": "RFC14", 
+        "aruco": 12, 
+        "mpu6050": {
+            "accel_x_offset": 10.50851979348144, 
+            "accel_y_offset": -0.41395986124267586, 
+            "accel_z_offset": 1.3995808586791971, 
+            "gyro_x_offset": 10.50851979348144, 
+            "gyro_y_offset": -0.41395986124267586, 
+            "gyro_z_offset": 1.3995808586791971
+        }, 
+        "name": "RFC12", 
         "servo": {
-            "right": {
-                "forward": -50, 
-                "stop": 147, 
-                "reverse": 50, 
-                "pin": 13
-            }, 
             "left": {
                 "forward": 50, 
-                "stop": 147, 
+                "pin": 18, 
                 "reverse": -50, 
-                "pin": 18
+                "stop": 147
+            }, 
+            "right": {
+                "forward": -50, 
+                "pin": 13, 
+                "reverse": 50, 
+                "stop": 147
             }
-        }, 
-        "aruco": 14
+        }
     }
 }

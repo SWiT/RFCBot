@@ -7,57 +7,16 @@ import time, datetime, sys
 import wiringpi
 import pygame
 
-
 import rfcbot
 
 bot = rfcbot.RFCBot()
 
-drivehat = 0        # The joystick hat used to drive.
-driveaxislr = 0     # The Left and Right joystick axis.
-driveaxisfb = 1     # The Forwards and Backwards joystick axis.
-
-driveaxisL = 1     # The Forwards and Backwards joystick axis.
-driveaxisR = 3     # The Forwards and Backwards joystick axis.
-
-# Calibration buttons
-cbhotkey = 12
-cbLF = 6
-cbLS = 4
-cbLR = 8
-cbRF = 7
-cbRS = 0
-cbRR = 9
-cbMPU = 3
-exitButton = 11
-
-waiting_period = 1.0
 delay_period = 0.01
-
-        
-# Initialize Pygame with no sound.
-pygame.display.init()
-
-# Initialize any joysticks
-pygame.joystick.init()
-# If no joystick then wait.
-joystickcount = pygame.joystick.get_count() 
-if joystickcount < 1:
-    print("RFC: Waiting for Joystick...")
-while joystickcount < 1:
-    pygame.joystick.quit()
-    time.sleep(waiting_period)
-    pygame.joystick.init()
-    joystickcount = pygame.joystick.get_count()
-
-# Connect to the first joystick.    
-joystick = pygame.joystick.Joystick(0)
-joystick.init()
-print("RFC: Joystick(0) "+str(joystick.get_numbuttons())+" Buttons")
-
 
 now = datetime.datetime.now()
 timer_mpu = now
 
+cfg = bot.config
     
 run = True
 while run:
@@ -70,10 +29,10 @@ while run:
         # Button Down
         if event.type == pygame.JOYBUTTONDOWN:
             print("RFC: Button "+str(event.button)+" Down")
-            if joystick.get_button(cbhotkey):
-                if joystick.get_button(exitButton):
+            if bot.joystick.get_button(cfg["btnHotkey"]):
+                if bot.joystick.get_button(cfg["btnExit"]):
                     run = False
-                elif joystick.get_button(cbMPU):
+                elif bot.joystick.get_button(cfg["btnCalMPU"]):
                     bot.calibrateMPU()
                 else:
                     y = 0
@@ -87,10 +46,10 @@ while run:
          
         # Hat Motion
         if event.type == pygame.JOYHATMOTION:
-            for h in range(joystick.get_numhats()):
-                hat = joystick.get_hat(h)
-                print("RFC: HAT ", h, hat, joystick.get_button(cbhotkey))
-                if joystick.get_button(cbhotkey):
+            for h in range(bot.joystick.get_numhats()):
+                hat = bot.joystick.get_hat(h)
+                print("RFC: HAT ", h, hat, bot.joystick.get_button(cfg["btnHotkey"]))
+                if bot.joystick.get_button(cfg["btnHotkey"]):
                     y = hat[1]
                     bot.calibrateServo(y)
                     bot.stop()
@@ -103,11 +62,11 @@ while run:
         # Axis Motion    
         if event.type == pygame.JOYAXISMOTION:
             axes = ""
-            for a in range(joystick.get_numaxes()):
-                axes += str(joystick.get_axis(a)) + " "
+            for a in range(bot.joystick.get_numaxes()):
+                axes += str(bot.joystick.get_axis(a)) + " "
             print("RFC: AXES ", axes)
-            leftspeed = -1.0 * joystick.get_axis(driveaxisL)
-            rightspeed = -1.0 * joystick.get_axis(driveaxisR)
+            leftspeed = -1.0 * bot.joystick.get_axis(cfg["driveAxisL"])
+            rightspeed = -1.0 * bot.joystick.get_axis(cfg["driveAxisR"])
             bot.setServos(leftspeed, rightspeed)
             
     # Check the MPU

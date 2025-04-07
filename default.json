@@ -1,20 +1,42 @@
 {
     "rfcbot": {
-        "name": "RFC14", 
+        "aruco": 12, 
+        "btnCalLF": 6, 
+        "btnCalLR": 8, 
+        "btnCalLS": 4, 
+        "btnCalMPU": 3, 
+        "btnCalRF": 7, 
+        "btnCalRR": 9, 
+        "btnCalRS": 0, 
+        "btnExit": 11, 
+        "btnHotkey": 12, 
+        "driveAxisFB": 1, 
+        "driveAxisL": 1, 
+        "driveAxisLR": 0, 
+        "driveAxisR": 3, 
+        "driveHat": 0, 
+        "mpu6050": {
+            "accel_x_offset": 10.510540499682612, 
+            "accel_y_offset": -0.39264188966064467, 
+            "accel_z_offset": 1.438031737341307, 
+            "gyro_x_offset": 10.510540499682612, 
+            "gyro_y_offset": -0.39264188966064467, 
+            "gyro_z_offset": 1.438031737341307
+        }, 
+        "name": "RFC12", 
         "servo": {
-            "right": {
-                "forward": -50, 
-                "stop": 147, 
-                "reverse": 50, 
-                "pin": 13
-            }, 
             "left": {
                 "forward": 50, 
-                "stop": 147, 
+                "pin": 18, 
                 "reverse": -50, 
-                "pin": 18
+                "stop": 147
+            }, 
+            "right": {
+                "forward": -50, 
+                "pin": 13, 
+                "reverse": 50, 
+                "stop": 147
             }
-        }, 
-        "aruco": 14
+        }
     }
 }

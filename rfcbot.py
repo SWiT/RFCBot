@@ -120,9 +120,9 @@ class RFCBot:
         self.config['mpu6050']["accel_x_offset"] = accel_x_offset
         self.config['mpu6050']["accel_y_offset"] = accel_y_offset
         self.config['mpu6050']["accel_z_offset"] = accel_z_offset
-        self.config['mpu6050']["gyro_x_offset"] = accel_x_offset
-        self.config['mpu6050']["gyro_y_offset"] = accel_y_offset
-        self.config['mpu6050']["gyro_z_offset"] = accel_z_offset
+        self.config['mpu6050']["gyro_x_offset"] = gyro_x_offset
+        self.config['mpu6050']["gyro_y_offset"] = gyro_y_offset
+        self.config['mpu6050']["gyro_z_offset"] = gyro_z_offset
         self.saveConfig()
         return
         
@@ -147,18 +147,23 @@ class RFCBot:
         elif x > 0 and y < 0:
             self.turnreverseright()
     
-    # Define a function to read the sensor data
-    def read_mpu6050_data(self):
-        # Read the accelerometer values
-        accelerometer_data = mpu6050.get_accel_data()
+    # Read the accelerometer data and apply any offset
+    def get_accel_data(self):
+        cfg = self.config["mpu6050"]
+        accel_data = self.mpu6050.get_accel_data()
+        accel_data['x'] -= cfg["accel_x_offset"]
+        accel_data['y'] -= cfg["accel_y_offset"]
+        accel_data['z'] -= cfg["accel_z_offset"]
+        return accel_data
 
-        # Read the gyroscope values
-        gyroscope_data = mpu6050.get_gyro_data()
-
-        # Read temp
-        temperature = mpu6050.get_temp()
-
-        return accelerometer_data, gyroscope_data, temperature
+    # Read the accelerometer data and apply any offset
+    def get_gyro_data(self):
+        cfg = self.config["mpu6050"]
+        gyro_data = self.mpu6050.get_gyro_data()
+        gyro_data['x'] -= cfg["gyro_x_offset"]
+        gyro_data['y'] -= cfg["gyro_y_offset"]
+        gyro_data['z'] -= cfg["gyro_z_offset"]
+        return gyro_data
 
 
     def calibrateServo(self, haty):

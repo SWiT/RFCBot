@@ -15,8 +15,11 @@ delay_period = 0.01
 
 now = datetime.datetime.now()
 timer_mpu = now
+timer_output = now
 
 cfg = bot.config
+accel_data = {}
+gyro_data = {}
     
 run = True
 while run:
@@ -72,18 +75,17 @@ while run:
     # Check the MPU
     if now > timer_mpu:
         # Read the sensor data
-        #accelerometer_data, gyroscope_data, temperature = read_sensor_data()
-        gyroscope_data = bot.mpu6050.get_gyro_data()
-        accelerometer_data = bot.mpu6050.get_accel_data()
-        
-        # Print the sensor data
-        #print("A:", accelerometer_data)
-        #print("G:", gyroscope_data)
-        #print("Temp:", temperature)
-        #print("\n")
-        
+        gyro_data = bot.get_gyro_data()
+        accel_data = bot.get_accel_data()
         timer_mpu = now + datetime.timedelta(milliseconds=2)
-        
+    
+    # Output
+    if now > timer_output:
+        print(now)
+        print("A:", accel_data)
+        print("G:", gyro_data)
+        print()
+        timer_output = now + datetime.timedelta(seconds=5)
         
     time.sleep(delay_period)
 

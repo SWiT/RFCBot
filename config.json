@@ -16,12 +16,12 @@
         "driveAxisR": 3, 
         "driveHat": 0, 
         "mpu6050": {
-            "accel_x_offset": 10.510540499682612, 
-            "accel_y_offset": -0.39264188966064467, 
-            "accel_z_offset": 1.438031737341307, 
-            "gyro_x_offset": 10.510540499682612, 
-            "gyro_y_offset": -0.39264188966064467, 
-            "gyro_z_offset": 1.438031737341307
+            "accel_x_offset": 10.50936255246578, 
+            "accel_y_offset": -0.33566946695556604, 
+            "accel_z_offset": 1.3339103013427753, 
+            "gyro_x_offset": -0.7633129770992367, 
+            "gyro_y_offset": 2.335977099236643, 
+            "gyro_z_offset": -0.6914427480916033
         }, 
         "name": "RFC12", 
         "servo": {

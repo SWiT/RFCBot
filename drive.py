@@ -64,13 +64,13 @@ while run:
                 
         # Axis Motion    
         if event.type == pygame.JOYAXISMOTION:
-            axes = ""
-            for a in range(bot.joystick.get_numaxes()):
-                axes += str(bot.joystick.get_axis(a)) + " "
-            print("RFC: AXES ", axes)
-            leftspeed = -1.0 * bot.joystick.get_axis(cfg["driveAxisL"])
-            rightspeed = -1.0 * bot.joystick.get_axis(cfg["driveAxisR"])
-            bot.setServos(leftspeed, rightspeed)
+            #print(event)
+            if event.axis==cfg["driveAxisL"] or event.axis==cfg["driveAxisR"]:
+                print("RFC: AXIS ", event.axis, " VALUE", event.value)
+                leftspeed = -1.0 * bot.joystick.get_axis(cfg["driveAxisL"])
+                rightspeed = 1.0 * bot.joystick.get_axis(cfg["driveAxisR"])
+                print("RFC: leftspeed ", leftspeed, " rightspeed", rightspeed)
+                bot.setServos(leftspeed, rightspeed)
             
     # Check the MPU
     if now > timer_mpu:
@@ -81,10 +81,10 @@ while run:
     
     # Output
     if now > timer_output:
-        print(now)
-        print("A:", accel_data)
-        print("G:", gyro_data)
-        print()
+        #print(now)
+        #print("A:", accel_data)
+        #print("G:", gyro_data)
+        #print()
         timer_output = now + datetime.timedelta(seconds=5)
         
     time.sleep(delay_period)

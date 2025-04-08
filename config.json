@@ -10,9 +10,7 @@
         "btnCalRS": 0, 
         "btnExit": 11, 
         "btnHotkey": 12, 
-        "driveAxisFB": 1, 
         "driveAxisL": 1, 
-        "driveAxisLR": 0, 
         "driveAxisR": 3, 
         "driveHat": 0, 
         "mpu6050": {
@@ -26,16 +24,16 @@
         "name": "RFC12", 
         "servo": {
             "left": {
-                "forward": 50, 
+                "forward": 170, 
                 "pin": 18, 
-                "reverse": -50, 
-                "stop": 147
+                "reverse": 130, 
+                "stop": 150
             }, 
             "right": {
-                "forward": -50, 
+                "forward": 130, 
                 "pin": 13, 
-                "reverse": 50, 
-                "stop": 147
+                "reverse": 170, 
+                "stop": 150
             }
         }
     }

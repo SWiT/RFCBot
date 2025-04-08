@@ -6,12 +6,17 @@ print("RFC: launching drive.py.")
 import time, datetime, sys
 import wiringpi
 import pygame
+import argparse
 
 import rfcbot
 
-bot = rfcbot.RFCBot()
+parser = argparse.ArgumentParser(description="A sample program")
+parser.add_argument("-v", "--verbose", action='store_true')
+args = parser.parse_args()
+verbose = args.verbose
+print(verbose)
 
-delay_period = 0.01
+bot = rfcbot.RFCBot(verbose)
 
 now = datetime.datetime.now()
 timer_mpu = now
@@ -31,7 +36,7 @@ while run:
         # Possible joystick actions: JOYAXISMOTION JOYBALLMOTION JOYBUTTONDOWN JOYBUTTONUP JOYHATMOTION
         # Button Down
         if event.type == pygame.JOYBUTTONDOWN:
-            print("RFC: Button "+str(event.button)+" Down")
+            if verbose: print("RFC: Button "+str(event.button)+" Down")
             if bot.joystick.get_button(cfg["btnHotkey"]):
                 if bot.joystick.get_button(cfg["btnExit"]):
                     run = False
@@ -44,14 +49,14 @@ while run:
 
         # Button Up                
         if event.type == pygame.JOYBUTTONUP:
-            print("RFC: Button "+str(event.button)+" Up" )
+            if verbose: print("RFC: Button "+str(event.button)+" Up" )
 
          
         # Hat Motion
         if event.type == pygame.JOYHATMOTION:
             for h in range(bot.joystick.get_numhats()):
                 hat = bot.joystick.get_hat(h)
-                print("RFC: HAT ", h, hat, bot.joystick.get_button(cfg["btnHotkey"]))
+                if verbose: print("RFC: HAT ", h, hat, bot.joystick.get_button(cfg["btnHotkey"]))
                 if bot.joystick.get_button(cfg["btnHotkey"]):
                     y = hat[1]
                     bot.calibrateServo(y)
@@ -66,10 +71,10 @@ while run:
         if event.type == pygame.JOYAXISMOTION:
             #print(event)
             if event.axis==cfg["driveAxisL"] or event.axis==cfg["driveAxisR"]:
-                print("RFC: AXIS ", event.axis, " VALUE", event.value)
+                if verbose: print("RFC: AXIS ", event.axis, " VALUE", event.value)
                 leftspeed = -1.0 * bot.joystick.get_axis(cfg["driveAxisL"])
                 rightspeed = 1.0 * bot.joystick.get_axis(cfg["driveAxisR"])
-                print("RFC: leftspeed ", leftspeed, " rightspeed", rightspeed)
+                if verbose: print("RFC: leftspeed ", leftspeed, " rightspeed", rightspeed)
                 bot.setServos(leftspeed, rightspeed)
             
     # Check the MPU
@@ -79,15 +84,15 @@ while run:
         accel_data = bot.get_accel_data()
         timer_mpu = now + datetime.timedelta(milliseconds=2)
     
-    # Output
-    if now > timer_output:
-        #print(now)
-        #print("A:", accel_data)
-        #print("G:", gyro_data)
-        #print()
-        timer_output = now + datetime.timedelta(seconds=5)
+    # Output    
+    if verbose and now > timer_output:
+        print(now)
+        print("A:", accel_data)
+        print("G:", gyro_data)
+        print()
+        timer_output = now + datetime.timedelta(seconds=10)
         
-    time.sleep(delay_period)
+    time.sleep(0.005)
 
 pygame.joystick.quit()
 print("*******************")

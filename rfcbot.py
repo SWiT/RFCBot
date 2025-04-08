@@ -5,6 +5,7 @@ import wiringpi
 import mpu6050
 import pygame
 
+
 class RFCBot:
     # Class for interacting with the Robot Fight Club RPi0W Bot.
     configfile = "/home/pi/RFCBot/config.json"
@@ -12,12 +13,15 @@ class RFCBot:
     joystick = {}
     mpu6050 = {}
 
-    throttle = 1.0
+    throttle = 0.25
+    verbose = False
     
-    def __init__(self):
+    def __init__(self, verbose):
+        self.verbose = verbose
+        
         # Load the RFCBot config values.
         self.loadConfig()
-        
+                
         # Create a new Mpu6050 object
         self.mpu6050 =  mpu6050.mpu6050(0x68)
         if "mpu6050" not in self.config:
@@ -64,7 +68,7 @@ class RFCBot:
         data['rfcbot'] = self.config
         with open(self.configfile, 'w') as outfile:
             json.dump(data, outfile, indent=4, sort_keys=True)
-        print("RFC: Config Saved.", self.config)
+        if self.verbose: print("RFC: Config Saved.", self.config)
         return
 
 
@@ -73,7 +77,10 @@ class RFCBot:
             data = json.load(json_file)
         self.config = data['rfcbot']
         print("RFC: Config Loaded.")
-        #print(self.config)
+        if self.verbose:
+            pretty_json = json.dumps(self.config, indent=4)
+            print(pretty_json)
+        
         return
 
 
@@ -191,7 +198,7 @@ class RFCBot:
             print("RFC: RR", R["reverse"])
 
     def setServos(self, leftspeed, rightspeed):
-        print("RFC: Set servos", leftspeed, rightspeed)
+        if self.verbose: print("RFC: Set servos", leftspeed, rightspeed)
         L = self.config['servo']['left']
         R = self.config['servo']['right']
         
@@ -206,64 +213,64 @@ class RFCBot:
         
     
     def stop(self):
-        #print("RFC: Stop")
+        if self.verbose: print("RFC: Stop")
         L = self.config['servo']['left']
         R = self.config['servo']['right']
         wiringpi.pwmWrite(L["pin"], L["stop"])
         wiringpi.pwmWrite(R["pin"], R["stop"])
 
     def forward(self):
-        #print("RFC: Forward")
+        if self.verbose: print("RFC: Forward")
         L = self.config['servo']['left']
         R = self.config['servo']['right']
         wiringpi.pwmWrite(L["pin"], L["forward"])
         wiringpi.pwmWrite(R["pin"], R["forward"])
 
     def reverse(self):
-        #print("RFC: Reverse")
+        if self.verbose: print("RFC: Reverse")
         L = self.config['servo']['left']
         R = self.config['servo']['right']
         wiringpi.pwmWrite(L["pin"], L["reverse"])
         wiringpi.pwmWrite(R["pin"], R["reverse"])
 
     def spinleft(self):
-        #print("RFC: Spin left")
+        if self.verbose: print("RFC: Spin left")
         L = self.config['servo']['left']
         R = self.config['servo']['right']
         wiringpi.pwmWrite(L["pin"], L["reverse"])
         wiringpi.pwmWrite(R["pin"], R["forward"])
 
     def spinright(self):
-        #print("RFC: Spin right")
+        if self.verbose: print("RFC: Spin right")
         L = self.config['servo']['left']
         R = self.config['servo']['right']
         wiringpi.pwmWrite(L["pin"], L["forward"])
         wiringpi.pwmWrite(R["pin"], R["reverse"])
 
     def turnforwardleft(self):
-        #print("RFC: Turn forward left", self.throttle)
+        if self.verbose: print("RFC: Turn forward left", self.throttle)
         L = self.config['servo']['left']
         R = self.config['servo']['right']
-        wiringpi.pwmWrite(L["pin"], self.calcPWM(L["forward"], L["stop"], 0.25))
+        wiringpi.pwmWrite(L["pin"], self.calcPWM(L["forward"], L["stop"], self.throttle))
         wiringpi.pwmWrite(R["pin"], R["forward"])
 
     def turnforwardright(self):
-        #print("RFC: Turn forward right", self.throttle)
+        if self.verbose: print("RFC: Turn forward right", self.throttle)
         L = self.config['servo']['left']
         R = self.config['servo']['right']
         wiringpi.pwmWrite(L["pin"], L["forward"])
-        wiringpi.pwmWrite(R["pin"], self.calcPWM(R["forward"], R["stop"], 0.25))
+        wiringpi.pwmWrite(R["pin"], self.calcPWM(R["forward"], R["stop"], self.throttle))
 
     def turnreverseleft(self):
-        #print("RFC: Turn reverse left", self.throttle)
+        if self.verbose: print("RFC: Turn reverse left", self.throttle)
         L = self.config['servo']['left']
         R = self.config['servo']['right']
-        wiringpi.pwmWrite(L["pin"], self.calcPWM(L["reverse"], L["stop"], 0.25))
+        wiringpi.pwmWrite(L["pin"], self.calcPWM(L["reverse"], L["stop"], self.throttle))
         wiringpi.pwmWrite(R["pin"], R["reverse"])
 
     def turnreverseright(self):
-        #print("RFC: Turn reverse right", self.throttle)
+        if self.verbose: print("RFC: Turn reverse right", self.throttle)
         L = self.config['servo']['left']
         R = self.config['servo']['right']
         wiringpi.pwmWrite(L["pin"], L["reverse"])
-        wiringpi.pwmWrite(R["pin"], self.calcPWM(R["reverse"], R["stop"], 0.25))
+        wiringpi.pwmWrite(R["pin"], self.calcPWM(R["reverse"], R["stop"], self.throttle))
